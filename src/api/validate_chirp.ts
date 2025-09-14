@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { respondWithError, respondWithJSON } from "./json.js";
+import { BadRequestError } from "./errors.js";
 
 
 export function handlerChirpsValidate(req: Request, res: Response) {
@@ -10,7 +11,7 @@ export function handlerChirpsValidate(req: Request, res: Response) {
     const params: parameters = req.body;
     const maxChirpLength = 140;
     if(params.body.length > maxChirpLength) {
-        throw new Error("Chirp is too long");
+        throw new BadRequestError(`Chirp is too long. Max length is ${maxChirpLength}`);
     }
 
 
