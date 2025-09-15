@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { BadRequestError } from "./errors.js";
 import { createChirp, getChirp, getChirps } from "../db/queries/chirps.js";
 import { respondWithJSON } from "./json.js";
+import { getBearerToken, validateJWT } from "../auth.js";
+import { config } from "../config.js";
+
 
 export async function handlerChirpsCreate(req: Request, res: Response) {
   type parameters = {
@@ -10,9 +13,11 @@ export async function handlerChirpsCreate(req: Request, res: Response) {
   };
 
   const params: parameters = req.body;
+  const token = getBearerToken(req);
+  const userId = validateJWT(token, config.jwt.secret)
 
   const cleaned = validateChirp(params.body);
-  const chirp = await createChirp({ body: cleaned, userId: params.userId });
+  const chirp = await createChirp({ body: cleaned, userId: userId});
 
   respondWithJSON(res, 201, chirp);
 }
