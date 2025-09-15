@@ -3,6 +3,7 @@ import { JwtPayload } from "jsonwebtoken";
 import jwt from "jsonwebtoken"
 import { BadRequestError, UserNotAuthenticatedError } from "./api/errors.js";
 import { Request } from "express";
+import crypto from "crypto";
 
 export async function hashPassword(password: string) {
     const saltRounds = 10;
@@ -69,3 +70,6 @@ export function extractBearerToken(header: string) {
     return splitAuth[1];
 }
 
+export function makeRefreshToken() {
+    return crypto.randomBytes(32).toString("hex");
+}

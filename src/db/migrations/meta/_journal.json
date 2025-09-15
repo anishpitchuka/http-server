@@ -22,6 +22,13 @@
       "when": 1757952796136,
       "tag": "0002_free_rictor",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1757964856325,
+      "tag": "0003_goofy_spot",
+      "breakpoints": true
     }
   ]
 }
