@@ -1,11 +1,14 @@
 import type { Request, Response } from "express";
 
-import { createUser, updateUser } from "../db/queries/users.js";
-import { BadRequestError } from "./errors.js";
+import { createUser,  updateUser } from "../db/queries/users.js";
+import { BadRequestError, NotFoundError, UserForbiddenError } from "./errors.js";
 import { respondWithJSON } from "./json.js";
 import { getBearerToken, hashPassword, validateJWT } from "../auth.js";
 import { NewUser } from "src/db/schema.js";
 import { config } from "../config.js";
+import { getChirp } from "../db/queries/chirps.js";
+import {deleteChirp,} from "../db/queries/chirps.js"
+
 
 export type UserResponse = Omit<NewUser, "hashedPassword">;
 
@@ -59,3 +62,4 @@ export async function handlerUsersUpdate(req: Request, res: Response) {
     email: user.email
   } satisfies UserResponse);
 }
+

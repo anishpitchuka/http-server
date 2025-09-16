@@ -1,6 +1,6 @@
 import { eq, is } from "drizzle-orm";
 import { db } from "../index.js";
-import { NewUser, users } from "../schema.js";
+import { chirps, NewUser, users } from "../schema.js";
 
 
 export async function createUser(user: NewUser) {
