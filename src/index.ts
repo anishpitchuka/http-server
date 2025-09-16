@@ -11,6 +11,7 @@ import { config } from "./config.js";
 import {  handlerUsersCreate, handlerUsersUpdate } from "./api/users.js";
 import { handlerLogin, handlerRefresh, handlerRevoke } from "./api/auth.js";
 import {handlerChirpsDelete,} from "./api/chirps.js"
+import { handlerWebhook } from "./api/webhooks.js";
 
 
 
@@ -68,6 +69,10 @@ app.post("/api/revoke", (req, res, next) => {
 
 app.put("/api/users", (req, res, next) => {
   Promise.resolve(handlerUsersUpdate(req, res)).catch(next);
+})
+
+app.post("/api/polka/webhooks", (req, res, next) => {
+  Promise.resolve(handlerWebhook(req, res)).catch(next);
 })
 
 app.use(errorMiddleware);

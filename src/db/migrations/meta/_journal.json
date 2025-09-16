@@ -29,6 +29,13 @@
       "when": 1757964856325,
       "tag": "0003_goofy_spot",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1758042436370,
+      "tag": "0004_nostalgic_gravity",
+      "breakpoints": true
     }
   ]
 }

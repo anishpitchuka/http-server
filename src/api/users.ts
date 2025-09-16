@@ -4,11 +4,12 @@ import { createUser,  updateUser } from "../db/queries/users.js";
 import { BadRequestError, NotFoundError, UserForbiddenError } from "./errors.js";
 import { respondWithJSON } from "./json.js";
 import { getBearerToken, hashPassword, validateJWT } from "../auth.js";
-import { NewUser } from "src/db/schema.js";
+import { NewUser, users } from "src/db/schema.js";
 import { config } from "../config.js";
 import { getChirp } from "../db/queries/chirps.js";
 import {deleteChirp,} from "../db/queries/chirps.js"
-
+import { db } from "src/db/index.js";
+import { eq } from "drizzle-orm";
 
 export type UserResponse = Omit<NewUser, "hashedPassword">;
 
@@ -34,6 +35,7 @@ export async function handlerUsersCreate(req: Request, res: Response) {
     email: user.email,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
+    isChirpyRed: user.isChirpyRed,
   } satisfies UserResponse);
 }
 
@@ -59,7 +61,7 @@ export async function handlerUsersUpdate(req: Request, res: Response) {
     id: user.id,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
-    email: user.email
+    email: user.email,
+    isChirpyRed: user.isChirpyRed,
   } satisfies UserResponse);
 }
-
